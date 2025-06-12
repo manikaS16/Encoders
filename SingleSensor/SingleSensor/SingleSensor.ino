@@ -52,5 +52,5 @@ void loop() {
   Serial.print(angleInDegrees, 2);
   Serial.println("°");
 
-  delay(200);  // Wait 500ms before next reading
+  delay(200);  // Wait 200ms before next reading
 }
