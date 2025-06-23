@@ -10,8 +10,8 @@
 
 #define TCA9548A_ADDR 0x70  // Default address of the multiplexer
 #define AS5600_ADDRESS 0x36  // Address of the AS5600 sensor on I2C bus
-#define MAX_SENSORS 4 // Maximum number of sensors we have connected to
 #define ANGLE_MSB_REGISTER 0x0E //  Specific spot inside the sensor which holds the angle information
+#define MAX_SENSORS 4 // Maximum number of sensors we have connected to
 
 /******************************* Helper functions ****************************/
 
@@ -21,8 +21,9 @@
  */
 void selectMuxChannel(uint8_t sensor) {
   if (sensor > 7) return; // Safety check: TCA9548A supports channels 0–7 only
+  
   Wire.beginTransmission(TCA9548A_ADDR); // Arduino starts taking to TCA9548A multiplexer
-  Wire.write(1 << sensor);  // Bitmask: sensor 0 = 00000001, 1 = 00000010, etc. The TCA9548A multiplexer uses a single byte (8 bits) where each bit represents a channel, To activate one specific channel, you set only that bit to 1
+  Wire.write(1 << sensor);  // Bitmask: sensor 0 = 00000001, 1 = 00000010, etc. The TCA9548A multiplexer uses a single byte where each bit represents a channel, To activate one specific channel, you set only that bit to 1
   Wire.endTransmission();
 }
 
