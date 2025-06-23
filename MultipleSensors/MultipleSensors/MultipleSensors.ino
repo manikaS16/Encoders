@@ -16,11 +16,9 @@
 /******************************* Helper functions ****************************/
 
 /**
- * Input: sensor number
- * Processing: Reads the raw 12-bit angle from the AS5600 sensor
- * Output: A value between 0 and 4095 representing the angular position
+ * Input: sensor number you want to activate using mux
+ * Processing: The TCA9548A multiplexer switches its internal connection to allow communication only with the sensor connected to the specified channel
  */
-// Function to select a sensor on the multiplexer
 void selectMuxChannel(uint8_t sensor) {
   if (sensor > 7) return; // Safety check: TCA9548A supports channels 0–7 only
   Wire.beginTransmission(TCA9548A_ADDR); // Arduino starts taking to TCA9548A multiplexer
