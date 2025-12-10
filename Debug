@@ -1,0 +1,38 @@
+Run this code to detect mux and sensors in I2C bus
+
+We exxpect result:
+
+Device found at 0x70  (MUX)
+Device found at 0x36  (AS5600)
+
+We are getting Scanning...
+
+Hence, I2C bus is not functioning. Issue lies in hardware.
+
+#include <Wire.h>
+
+void setup() {
+  Wire.begin();
+  Serial.begin(9600);
+  Serial.println("Scanning...");
+}
+
+void loop() {
+  byte error, address;
+  int count = 0;
+
+  for(address = 1; address < 127; address++ ) {
+    Wire.beginTransmission(address);
+    error = Wire.endTransmission();
+
+    if (error == 0) {
+      Serial.print("Device found at 0x");
+      Serial.println(address, HEX);
+      count++;
+    }
+  }
+
+  if (count == 0) Serial.println("No I2C devices found!");
+
+  delay(2000);
+}
